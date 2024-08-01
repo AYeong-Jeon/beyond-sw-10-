@@ -1,4 +1,4 @@
-package src.main.java.com.chap01.level01;
+package src.main.java.com.java0731.chap01.level01;
 
 public class Application2 {
     public static void main(String[] args) {
