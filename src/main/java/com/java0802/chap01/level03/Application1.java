@@ -23,22 +23,30 @@ public class Application1 {
          * 양수 혹은 홀수만 입력해야 합니다.
          */
 
-        int odd = 0;
         Scanner sc = new Scanner(System.in);
 
-        do {
-            System.out.println("홀수인 양의 정수를 입력하세요.");
-             odd = sc.nextInt();
+        System.out.println("홀수인 양의 정수를 입력하세요.");
+        int odd = sc.nextInt();
 
-            if(odd%2==0) {
-                System.out.println("양수 혹은 홀수만 입력해야합니다.");
-            } else {
-                break;
+        if (odd % 2 == 1) {
+            int[] iarr = new int[odd];
+            int mid = (int) (odd / 2 + 1);
+            int cnt = 0;
+
+            for (int i = 0; i < mid; i++) {
+                iarr[i] = ++cnt;
             }
-        } while (true);
 
-        int[] numArr = new int[odd];
+            for (int i = mid; i < iarr.length; i++) {
+                iarr[i] = --cnt;
+            }
 
+            for (int j : iarr) {
+                System.out.print(j + " ");
+            }
+
+        } else {
+            System.out.println("양수 혹은 홀수만 입력해야 합니다.");
+        }
     }
-
 }
