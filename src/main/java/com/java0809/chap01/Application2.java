@@ -17,6 +17,6 @@ public class Application2 {
         System.out.println("Double 합계 : " + sum(doubleArray));
 
         String[] strArray = {"A", "B", "C"};
-        System.out.println("String 합계 : " + sum(strArray));
+        //System.out.println("String 합계 : " + sum(strArray));
     }
 }

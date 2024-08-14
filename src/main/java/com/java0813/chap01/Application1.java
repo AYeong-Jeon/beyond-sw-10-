@@ -1,8 +1,10 @@
 package src.main.java.com.java0813.chap01;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Application1 {
     public static void main(String[] args) {
@@ -16,13 +18,13 @@ public class Application1 {
         );
 
         // 1. 모든 직원의 이름을 쉼표로 구분된 문자열로 반환
-        String allNames = // 코드 작성
+        String allNames = employees.stream().map(Employee::getName).collect(Collectors.joining(","));
 
         // 2. IT 부서에서 급여가 5,000 이상인 직원의 이름을 급여 순으로 내림차순 정렬하여 반환
-        List<String> highSalaryIT = // 코드 작성
+        List<String> highSalaryIT = employees.stream().filter(i -> i.getSalary()>=5000 && i.getDepartment().equals("IT")).sorted(Comparator.comparingInt(Employee::getSalary).reversed()).map(Employee::getName).collect(Collectors.toList());
 
         // 3. 각 부서별 평균 급여를 계산하여 맵으로 반환
-        Map<String, Double> averageSalaryByDept = // 코드 작성
+        Map<String, Double> averageSalaryByDept = employees.stream().collect(Collectors.groupingBy(Employee::getDepartment, Collectors.averagingDouble(Employee::getSalary)));
 
         System.out.println(allNames); // 출력 예시: "홍길동, 김철수, 이영희, 박민수, 최지현, 한석봉"
         System.out.println(highSalaryIT); // 출력 예시: [이영희, 홍길동, 한석봉]
