@@ -1,6 +1,7 @@
 package src.main.java.com.java0813.chap04;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -19,10 +20,10 @@ public class Application1 {
         List<String> highRatedActionMovies = movies.stream().filter(i -> i.getRating()>=80).map(Movie::getTitle).collect(Collectors.toList());
 
         // 2. 모든 영화의 평균 상영시간을 계산하여 반환
-        double averageDuration = movies.stream().;
+        double averageDuration = movies.stream().mapToDouble(Movie::getDuration).average().getAsDouble();
 
         // 3. 각 장르별 최고 평점을 가진 영화의 제목을 맵으로 반환
-        Map<String, String> topRatedMoviesByGenre = ;
+        Map<String, String> topRatedMoviesByGenre = movies.stream().collect(Collectors.groupingBy(Movie::getGenre, Collectors.collectingAndThen(Collectors.maxBy(Comparator.comparingDouble(Movie::getRating)), optionMovie -> optionMovie.map(Movie::getTitle).orElse(""))));
 
         System.out.println(highRatedActionMovies); // 출력 예시: ["인셉션", "다크 나이트"]
         System.out.println(averageDuration); // 출력 예시: 157.2
