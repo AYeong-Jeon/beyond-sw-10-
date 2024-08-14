@@ -1,8 +1,10 @@
 package src.main.java.com.java0813.chap02;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Application1 {
     public static void main(String[] args) {
@@ -14,15 +16,15 @@ public class Application1 {
         );
 
         // 1. 배송 완료 상태의 주문 ID 리스트를 반환
-        List<String> completedOrderIds = // 코드 작성
+        List<String> completedOrderIds = orders.stream().filter(i -> i.getStatus().equals("배송 완료")).map(Order::getOrderId).collect(Collectors.toList());
 
         // 2. 각 고객이 주문한 총 금액을 계산하여 맵으로 반환
-        Map<String, Double> totalAmountByCustomer = // 코드 작성
+        Map<String, Double> totalAmountByCustomer = orders.stream().collect(Collectors.groupingBy(Order::getCustomerName, Collectors.summingDouble(Order::getTotalAmount)));
 
-                // 3. 가장 높은 주문 금액을 가진 고객의 이름을 반환
-                String highestOrderCustomer = // 코드 작성
+        // 3. 가장 높은 주문 금액을 가진 고객의 이름을 반환
+        String highestOrderCustomer = orders.stream().max(Comparator.comparingDouble(Order::getTotalAmount)).map(Order::getCustomerName).orElse(null);
 
-                System.out.println(completedOrderIds); // 출력 예시: ["O001", "O003"]
+        System.out.println(completedOrderIds); // 출력 예시: ["O001", "O003"]
         System.out.println(totalAmountByCustomer); // 출력 예시: {홍길동=1200.0, 김철수=800.0, 이영희=600.0, 박민수=300.0}
         System.out.println(highestOrderCustomer); // 출력 예시: "홍길동"
     }
