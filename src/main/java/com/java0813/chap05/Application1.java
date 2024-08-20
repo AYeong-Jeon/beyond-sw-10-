@@ -23,7 +23,7 @@ public class Application1 {
        String mostExpensiveBookAfter2000 = books.stream().filter(i -> i.getPublicationYear()>=2000).max(Comparator.comparingDouble(Book::getPrice)).map(Book::getTitle).orElse("");
 
        //3. 각 출판 연도별로 도서의 수를 계산하여 맵으로 반환
-       Map <Integer, Long> booksCountByYear =;
+       Map <Integer, Long> booksCountByYear = books.stream().collect(Collectors.groupingBy(Book::getPublicationYear, Collectors.counting()));
 
        System.out.println(booksByAuthor); // 출력 예시: ["해리포터와 마법사의 돌", "해리포터와 비밀의 방"]
        System.out.println(mostExpensiveBookAfter2000); // 출력 예시: "다빈치 코드"
